@@ -24,7 +24,7 @@ Outputs WASM files to `docs/` directory.
 
 ```bash
 make serve
-# Opens http://localhost:8080
+# Opens http://localhost:8000
 ```
 
 Or use any static file server:

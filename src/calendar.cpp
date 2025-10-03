@@ -9,7 +9,7 @@ const char* CalendarLogic::monthNames_[12] = {
 };
 
 const char* CalendarLogic::dayNames_[7] = {
-    "SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"
+    "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"
 };
 
 int CalendarLogic::getDaysInMonth(int month, int year) {
@@ -26,7 +26,38 @@ int CalendarLogic::getFirstDayOfMonth(int month, int year) {
     timeinfo.tm_mon = month;
     timeinfo.tm_mday = 1;
     mktime(&timeinfo);
-    return timeinfo.tm_wday;
+    // Convert Sunday=0 to Monday=0 system
+    return (timeinfo.tm_wday + 6) % 7;
+}
+
+int CalendarLogic::getDayOfWeek(int day, int month, int year) {
+    tm timeinfo = {};
+    timeinfo.tm_year = year - 1900;
+    timeinfo.tm_mon = month;
+    timeinfo.tm_mday = day;
+    mktime(&timeinfo);
+    // Convert Sunday=0 to Monday=0 system
+    return (timeinfo.tm_wday + 6) % 7;
+}
+
+void CalendarLogic::getMondayOfWeek(int day, int month, int year, int& mondayDay, int& mondayMonth, int& mondayYear) {
+    // Get day of week (0=Monday, 6=Sunday)
+    int dayOfWeek = getDayOfWeek(day, month, year);
+    
+    // Calculate how many days back to Monday
+    mondayDay = day - dayOfWeek;
+    mondayMonth = month;
+    mondayYear = year;
+    
+    // Handle month/year boundaries
+    while (mondayDay < 1) {
+        mondayMonth--;
+        if (mondayMonth < 0) {
+            mondayMonth = 11;
+            mondayYear--;
+        }
+        mondayDay += getDaysInMonth(mondayMonth, mondayYear);
+    }
 }
 
 void CalendarLogic::getWeekDates(int startDay, int month, int year, int dates[7]) {

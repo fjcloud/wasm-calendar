@@ -30,20 +30,30 @@ std::vector<Event*> EventManager::getEventsForDate(int day, int month, int year)
 
 void EventManager::sortEventsByTime(std::vector<Event*>& events) {
     std::sort(events.begin(), events.end(), [](Event* a, Event* b) {
-        if (a->hour == -1 && b->hour == -1) return false;
-        if (a->hour == -1) return false;
-        if (b->hour == -1) return true;
-        if (a->hour != b->hour) return a->hour < b->hour;
-        return a->minute < b->minute;
+        // All-day events first
+        if (a->isAllDay && !b->isAllDay) return true;
+        if (!a->isAllDay && b->isAllDay) return false;
+        if (a->isAllDay && b->isAllDay) return false;
+        
+        // Then by start time
+        if (a->hourStart != b->hourStart) return a->hourStart < b->hourStart;
+        return a->minuteStart < b->minuteStart;
     });
 }
 
 std::string EventManager::formatEventTime(const Event* event) {
-    if (event->hour == -1) {
-        return "";
+    if (event->isAllDay || event->hourStart == -1) {
+        return "All day";
     }
-    char buffer[16];
-    snprintf(buffer, sizeof(buffer), "%02d:%02d", event->hour, event->minute);
+    char buffer[32];
+    if (event->hourEnd != -1) {
+        snprintf(buffer, sizeof(buffer), "%02d:%02d - %02d:%02d", 
+                event->hourStart, event->minuteStart,
+                event->hourEnd, event->minuteEnd);
+    } else {
+        snprintf(buffer, sizeof(buffer), "%02d:%02d", 
+                event->hourStart, event->minuteStart);
+    }
     return std::string(buffer);
 }
 

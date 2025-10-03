@@ -30,12 +30,16 @@ emcc -c imgui/backends/imgui_impl_opengl3.cpp -o imgui_impl_opengl3.o -Iimgui -s
 emcc -c src/event.cpp -o event.o -Isrc -Iimgui -s USE_SDL=2\n\
 emcc -c src/calendar.cpp -o calendar.o -Isrc -Iimgui -s USE_SDL=2\n\
 emcc -c src/storage.cpp -o storage.o -Isrc -Iimgui -s USE_SDL=2\n\
-emcc -c src/ui.cpp -o ui.o -Isrc -Iimgui -Iimgui/backends -s USE_SDL=2\n\
+emcc -c src/ui_core.cpp -o ui_core.o -Isrc -Iimgui -Iimgui/backends -s USE_SDL=2\n\
+emcc -c src/ui_views.cpp -o ui_views.o -Isrc -Iimgui -Iimgui/backends -s USE_SDL=2\n\
+emcc -c src/ui_events.cpp -o ui_events.o -Isrc -Iimgui -Iimgui/backends -s USE_SDL=2\n\
+emcc -c src/ui_timegrid.cpp -o ui_timegrid.o -Isrc -Iimgui -Iimgui/backends -s USE_SDL=2\n\
 emcc -c src/main.cpp -o main.o -Isrc -Iimgui -Iimgui/backends -s USE_SDL=2\n\
 \n\
 # Link everything\n\
 emcc -o /app/dist/index.html \\\n\
-    main.o event.o calendar.o storage.o ui.o \\\n\
+    main.o event.o calendar.o storage.o \\\n\
+    ui_core.o ui_views.o ui_events.o ui_timegrid.o \\\n\
     imgui.o imgui_demo.o imgui_draw.o imgui_tables.o imgui_widgets.o \\\n\
     imgui_impl_sdl2.o imgui_impl_opengl3.o \\\n\
     -s USE_SDL=2 \\\n\

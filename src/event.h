@@ -11,8 +11,15 @@ struct Event {
     int day;
     int month;
     int year;
-    int hour;    // 0-23, -1 for no time set
-    int minute;  // 0-59
+    int hourStart;      // 0-23, -1 for all-day event
+    int minuteStart;    // 0-59
+    int hourEnd;        // 0-23, -1 for all-day event
+    int minuteEnd;      // 0-59
+    bool isAllDay;
+    
+    // Constructor for backward compatibility
+    Event() : day(0), month(0), year(0), hourStart(-1), minuteStart(0), 
+              hourEnd(-1), minuteEnd(0), isAllDay(false) {}
 };
 
 class EventManager {

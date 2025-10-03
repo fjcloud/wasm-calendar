@@ -58,7 +58,7 @@ int main(int, char**) {
     // Create window
     g_Window = SDL_CreateWindow("Calendar",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-        800, 600,
+        1400, 900,
         SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
     
     g_GLContext = SDL_GL_CreateContext(g_Window);

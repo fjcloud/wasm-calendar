@@ -9,6 +9,8 @@ public:
     static int getFirstDayOfMonth(int month, int year);
     static void getWeekDates(int startDay, int month, int year, int dates[7]);
     static void advanceWeek(int& day, int& month, int& year, int direction);
+    static void getMondayOfWeek(int day, int month, int year, int& mondayDay, int& mondayMonth, int& mondayYear);
+    static int getDayOfWeek(int day, int month, int year);
     
     static const char* getMonthName(int month);
     static const char* getDayName(int day);

@@ -4,11 +4,11 @@ A retro terminal-style calendar with WebAssembly. Monthly and weekly views, even
 
 ## Features
 
-- 📅 **Monthly/Weekly Views**: Toggle between full month grid and detailed week agenda
-- ⏰ **Timed Events**: Schedule events with 24-hour time format
-- 💾 **Auto-save**: Events persist in browser localStorage
-- 🖥️ **Classic Terminal**: Timeless phosphor green aesthetic
-- 🚀 **WebAssembly**: Runs entirely in browser, no backend needed
+- **Monthly/Weekly Views**: Toggle between full month grid and detailed week agenda
+- **Timed Events**: Schedule events with 24-hour time format
+- **Auto-save**: Events persist in browser localStorage
+- **Classic Terminal**: Timeless phosphor green aesthetic
+- **WebAssembly**: Runs entirely in browser, no backend needed
 
 ## Quick Start
 

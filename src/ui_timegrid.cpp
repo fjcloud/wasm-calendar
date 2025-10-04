@@ -62,13 +62,8 @@ void CalendarUI::renderTimeGrid(int startDay, int numDays) {
         int dayOfWeek = (firstDay + day - 1) % 7;
         
         char header[32];
-        if (numDays == 1) {
-            snprintf(header, sizeof(header), "%s %d", 
-                    CalendarLogic::getDayName(dayOfWeek), day);
-        } else {
-            snprintf(header, sizeof(header), "%s\n%d", 
-                    CalendarLogic::getDayName(dayOfWeek), day);
-        }
+        snprintf(header, sizeof(header), "%s %d", 
+                CalendarLogic::getDayName(dayOfWeek), day);
         
         bool isToday = (day == state_.selectedDay && month == state_.currentMonth);
         if (isToday) {

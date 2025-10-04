@@ -6,7 +6,7 @@ namespace calendar {
 
 CalendarState::CalendarState() 
     : currentMonth(0), currentYear(0), selectedDay(0),
-      showAddEvent(false), viewMode(VIEW_WEEK), weekStartDay(1),
+      showAddEvent(false), viewMode(VIEW_MONTH), weekStartDay(1),
       eventHourStart(9), eventMinuteStart(0),
       eventHourEnd(10), eventMinuteEnd(0), eventIsAllDay(false),
       isDragging(false), draggedEvent(nullptr), dragOffsetMinutes(0) {

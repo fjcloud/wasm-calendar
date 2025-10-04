@@ -16,9 +16,11 @@ void CalendarUI::renderTimeGrid(int startDay, int numDays) {
     const int endHour = 24;    // End at midnight (23:59)
     int totalHours = endHour - startHour;
     
-    float columnWidth = (numDays == 1) ? 1250.0f : 175.0f;
-    float timeColumnWidth = 70.0f;
-    float headerHeight = 35.0f;
+    // Calculate responsive dimensions based on available space
+    float timeColumnWidth = canvas_size.x * 0.05f;  // 5% for time labels
+    float remainingWidth = canvas_size.x - timeColumnWidth;
+    float columnWidth = remainingWidth / numDays;
+    float headerHeight = canvas_size.y * 0.04f;     // 4% for header
     
     // Calculate hourHeight to fill all available space
     float availableHeight = canvas_size.y - headerHeight - 10.0f; // Small margin

@@ -23,7 +23,18 @@ void main_loop() {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         ImGui_ImplSDL2_ProcessEvent(&event);
+        
+        // Handle window resize
+        if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+            int width = event.window.data1;
+            int height = event.window.data2;
+            glViewport(0, 0, width, height);
+        }
     }
+
+    // Get current window size for viewport
+    int display_w, display_h;
+    SDL_GetWindowSize(g_Window, &display_w, &display_h);
 
     // Start the Dear ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
@@ -36,7 +47,7 @@ void main_loop() {
     // Rendering
     ImGui::Render();
     SDL_GL_MakeCurrent(g_Window, g_GLContext);
-    glViewport(0, 0, 800, 600);
+    glViewport(0, 0, display_w, display_h);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -55,11 +66,11 @@ int main(int, char**) {
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
-    // Create window
+    // Create window - size will be controlled by CSS/canvas in WASM
     g_Window = SDL_CreateWindow("Calendar",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-        1400, 900,
-        SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+        1400, 900,  // Default size, overridden by canvas in browser
+        SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     
     g_GLContext = SDL_GL_CreateContext(g_Window);
     SDL_GL_MakeCurrent(g_Window, g_GLContext);

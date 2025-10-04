@@ -32,10 +32,17 @@ void CalendarUI::renderWeekView() {
 }
 
 void CalendarUI::renderMonthView() {
+    // Calculate responsive cell dimensions
+    float availableWidth = ImGui::GetContentRegionAvail().x;
+    float itemSpacing = 4.0f;
+    float cellWidth = (availableWidth - (itemSpacing * 6)) / 7.0f;  // 7 columns with spacing
+    float headerHeight = cellWidth * 0.28f;  // Proportional to width
+    float cellHeight = cellWidth * 0.47f;    // Proportional to width
+    
     // Day headers
-    ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(4, 4));
+    ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(itemSpacing, itemSpacing));
     for (int i = 0; i < 7; i++) {
-        ImGui::Button(CalendarLogic::getDayName(i), ImVec2(106, 30));
+        ImGui::Button(CalendarLogic::getDayName(i), ImVec2(cellWidth, headerHeight));
         if (i < 6) ImGui::SameLine();
     }
     ImGui::PopStyleVar();
@@ -46,15 +53,16 @@ void CalendarUI::renderMonthView() {
     int daysInMonth = CalendarLogic::getDaysInMonth(state_.currentMonth, state_.currentYear);
     int day = 1;
 
-    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(12, 12));
-    ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(4, 4));
+    float framePadding = cellWidth * 0.11f;  // Proportional padding
+    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(framePadding, framePadding));
+    ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(itemSpacing, itemSpacing));
     
     for (int week = 0; week < 6 && day <= daysInMonth; week++) {
         for (int dow = 0; dow < 7; dow++) {
             if (week == 0 && dow < firstDay) {
                 char emptyId[32];
                 snprintf(emptyId, sizeof(emptyId), "empty_%d_%d", week, dow);
-                ImGui::InvisibleButton(emptyId, ImVec2(106, 50));
+                ImGui::InvisibleButton(emptyId, ImVec2(cellWidth, cellHeight));
             } else if (day <= daysInMonth) {
                 char buttonLabel[32];
                 auto dayEvents = eventManager_.getEventsForDate(day, state_.currentMonth, state_.currentYear);
@@ -74,7 +82,7 @@ void CalendarUI::renderMonthView() {
                     ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.0f, 0.0f, 0.0f, 1.0f));
                 }
                 
-                if (ImGui::Button(buttonLabel, ImVec2(106, 50))) {
+                if (ImGui::Button(buttonLabel, ImVec2(cellWidth, cellHeight))) {
                     state_.selectedDay = day;
                     state_.showAddEvent = false;
                 }
@@ -87,7 +95,7 @@ void CalendarUI::renderMonthView() {
             } else {
                 char emptyId[32];
                 snprintf(emptyId, sizeof(emptyId), "empty_end_%d_%d", week, dow);
-                ImGui::InvisibleButton(emptyId, ImVec2(106, 50));
+                ImGui::InvisibleButton(emptyId, ImVec2(cellWidth, cellHeight));
             }
             
             if (dow < 6) ImGui::SameLine();

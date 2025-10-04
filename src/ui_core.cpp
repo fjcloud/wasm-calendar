@@ -26,8 +26,12 @@ CalendarUI::CalendarUI(CalendarState& state, EventManager& eventManager)
     : state_(state), eventManager_(eventManager) {}
 
 void CalendarUI::render() {
+    // Use actual display size for responsive layout
+    ImGuiIO& io = ImGui::GetIO();
+    ImVec2 displaySize = io.DisplaySize;
+    
     ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Always);
-    ImGui::SetNextWindowSize(ImVec2(1400, 900), ImGuiCond_Always);
+    ImGui::SetNextWindowSize(displaySize, ImGuiCond_Always);
     ImGui::Begin("CALENDAR", nullptr, 
                  ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse |
                  ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);

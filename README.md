@@ -5,13 +5,14 @@ A retro terminal-style calendar with WebAssembly. Interactive time grid with dra
 ## Features
 
 - **Three View Modes**: Day, Week (Monday-Sunday), and Month views with smooth switching
-- **Time Grid View**: Google Calendar-style hourly grid (7am-11pm) that fills entire window
+- **Fully Responsive**: Adapts to any window size - resize your browser and watch it scale
+- **Time Grid View**: Google Calendar-style hourly grid (7am-11pm) with proportional sizing
 - **Drag & Drop**: Click and drag events to reschedule them instantly
 - **Right-Click Creation**: Right-click any time slot to create an event with pre-filled time
 - **Event Duration**: Create events with start and end times, or mark as all-day
 - **Visual Timeline**: Events appear as colored blocks positioned by time with duration-based height
 - **Auto-save**: Events persist in browser localStorage
-- **No Scrolling**: Everything fits in a fixed 1400×900 window with dynamic grid sizing
+- **No Scrolling**: Everything fits in viewport with dynamic grid sizing
 - **Classic Terminal**: Timeless phosphor green aesthetic
 - **WebAssembly**: Runs entirely in browser, no backend needed
 
@@ -63,9 +64,11 @@ python3 -m http.server 8080
 
 ### Grid Features
 
-- **Dynamic sizing** - time grid fills entire window (1400×900)
+- **Fully responsive** - resizes smoothly with browser window
+- **Dynamic sizing** - time grid and month view adapt to any viewport size
 - **Optimized hours** - 7am to 11pm range for maximum slot visibility
 - **No scrolling** - everything visible at once
+- **Proportional layout** - all dimensions calculated as percentages for consistent scaling
 - **Pixel-perfect alignment** - day headers align exactly with grid columns
 
 ## Development

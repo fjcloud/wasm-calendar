@@ -6,9 +6,9 @@
 #include <emscripten.h>
 #include <emscripten/html5.h>
 
-#include "ui.h"
-#include "event.h"
-#include "storage.h"
+#include "ui/ui.h"
+#include "core/event.h"
+#include "core/storage.h"
 
 using namespace calendar;
 

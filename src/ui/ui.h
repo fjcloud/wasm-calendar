@@ -1,8 +1,8 @@
 #ifndef UI_H
 #define UI_H
 
-#include "event.h"
-#include "calendar.h"
+#include "../core/event.h"
+#include "../core/calendar.h"
 
 namespace calendar {
 
